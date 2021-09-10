@@ -1,6 +1,7 @@
 # Pending #
-- **[2]** Render paddle on game init
+- **[3]** Set up collision detection between paddle and ball
 
 # Resolved #
 
 - **[1]** Set up game window to startup when run
+- **[2]** Render paddle on game init
