@@ -1,0 +1,5 @@
+# Pending #
+- **[1]** Set up game window to startup when run
+
+# Resolved #
+
