@@ -12,5 +12,6 @@ public class Paddle extends Entity {
         addImageWithBoundingBox(ResourceManager
                 .getImage(BounceGame.PADDLE_RSC));
         velocity = new Vector(0f, 0f);
+        setScale(0.66f);
     }
 }

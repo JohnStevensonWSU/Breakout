@@ -81,6 +81,15 @@ class PlayingState extends BasicGameState {
 			bg.explosions.add(new Bang(bg.ball.getX(), bg.ball.getY()));
 			bounces++;
 		}
+
+		if (bg.ball.getCoarseGrainedMaxY() > bg.paddle.getCoarseGrainedMinY() && bg.ball.getCoarseGrainedMaxY() < bg.paddle.getCoarseGrainedMaxY()) {
+			if (bg.ball.getCoarseGrainedMinX() > bg.paddle.getCoarseGrainedMinX()  && bg.ball.getCoarseGrainedMinX() < bg.paddle.getCoarseGrainedMaxY()
+					|| bg.ball.getCoarseGrainedMaxX() < bg.paddle.getCoarseGrainedMaxX() && bg.ball.getCoarseGrainedMaxX() > bg.paddle.getCoarseGrainedMinX()) {
+				bg.ball.bounce(0);
+				bounced = true;
+			}
+		}
+
 		bg.ball.update(delta);
 
 		// check if there are any finished explosions, if so remove them
