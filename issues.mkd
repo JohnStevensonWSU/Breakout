@@ -1,5 +1,6 @@
 # Pending #
-- **[1]** Set up game window to startup when run
+- **[2]** Render paddle on game init
 
 # Resolved #
 
+- **[1]** Set up game window to startup when run
