@@ -56,6 +56,7 @@ class PlayingState extends BasicGameState {
 
 		Input input = container.getInput();
 		BounceGame bg = (BounceGame)game;
+		boolean hitBottom = false;
 		
 		if (input.isKeyDown(Input.KEY_UP)) {
 			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, -.001f)));
@@ -85,11 +86,13 @@ class PlayingState extends BasicGameState {
 				|| bg.ball.getCoarseGrainedMinX() < 0) {
 			bg.ball.bounce(90);
 			bounced = true;
-		} else if (bg.ball.getCoarseGrainedMaxY() > bg.ScreenHeight
-				|| bg.ball.getCoarseGrainedMinY() < 0) {
+		} else if (bg.ball.getCoarseGrainedMinY() < 0) {
 			bg.ball.bounce(0);
 			bounced = true;
+		} else if(bg.ball.getCoarseGrainedMaxY() > bg.ScreenHeight) {
+			hitBottom = true;
 		}
+
 		if (bounced) {
 			bg.explosions.add(new Bang(bg.ball.getX(), bg.ball.getY()));
 			bounces++;
@@ -123,7 +126,7 @@ class PlayingState extends BasicGameState {
 			}
 		}
 
-		if (bounces >= 10) {
+		if (hitBottom) {
 			((GameOverState)game.getState(BounceGame.GAMEOVERSTATE)).setUserScore(bounces);
 			game.enterState(BounceGame.GAMEOVERSTATE);
 		}
