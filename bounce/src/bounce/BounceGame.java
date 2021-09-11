@@ -60,6 +60,7 @@ public class BounceGame extends StateBasedGame {
 	Ball ball;
 	ArrayList<Bang> explosions;
 	Paddle paddle;
+	Block block;
 
 	/**
 	 * Create the BounceGame frame, saving the width and height for later use.
@@ -105,6 +106,7 @@ public class BounceGame extends StateBasedGame {
 		
 		ball = new Ball(ScreenWidth / 2, ScreenHeight / 2, .1f, .2f);
 		paddle = new Paddle(ScreenWidth / 2, ScreenHeight * 3 / 4);
+		block = new Block(ScreenWidth / 2, ScreenHeight / 4);
 
 	}
 	
