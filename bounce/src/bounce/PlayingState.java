@@ -42,6 +42,9 @@ class PlayingState extends BasicGameState {
 		
 		bg.ball.render(g);
 		bg.paddle.render(g);
+		if (!bg.block.getIsBroken()) {
+			bg.block.render(g);
+		}
 		g.drawString("Bounces: " + bounces, 10, 30);
 		for (Bang b : bg.explosions)
 			b.render(g);
@@ -83,13 +86,22 @@ class PlayingState extends BasicGameState {
 		}
 
 		if (bg.ball.getCoarseGrainedMaxY() > bg.paddle.getCoarseGrainedMinY() && bg.ball.getCoarseGrainedMaxY() < bg.paddle.getCoarseGrainedMaxY()) {
-			if (bg.ball.getCoarseGrainedMinX() > bg.paddle.getCoarseGrainedMinX()  && bg.ball.getCoarseGrainedMinX() < bg.paddle.getCoarseGrainedMaxY()
+			if (bg.ball.getCoarseGrainedMinX() > bg.paddle.getCoarseGrainedMinX()  && bg.ball.getCoarseGrainedMinX() < bg.paddle.getCoarseGrainedMaxX()
 					|| bg.ball.getCoarseGrainedMaxX() < bg.paddle.getCoarseGrainedMaxX() && bg.ball.getCoarseGrainedMaxX() > bg.paddle.getCoarseGrainedMinX()) {
 				bg.ball.bounce(0);
 				bounced = true;
 			}
 		}
 
+		if(!bg.block.getIsBroken()) {
+			if (bg.ball.getCoarseGrainedMinY() < bg.block.getCoarseGrainedMaxY() && bg.ball.getCoarseGrainedMinY() > bg.block.getCoarseGrainedMinY()) {
+				if (bg.ball.getCoarseGrainedMinX() > bg.block.getCoarseGrainedMinX()  && bg.ball.getCoarseGrainedMinX() < bg.block.getCoarseGrainedMaxX()
+						|| bg.ball.getCoarseGrainedMaxX() < bg.block.getCoarseGrainedMaxX() && bg.ball.getCoarseGrainedMaxX() > bg.block.getCoarseGrainedMinX()) {
+					bg.ball.bounce(0);
+					bounced = true;
+				}
+			}
+		}
 		bg.ball.update(delta);
 
 		// check if there are any finished explosions, if so remove them
