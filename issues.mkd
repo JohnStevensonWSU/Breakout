@@ -1,5 +1,4 @@
 # Pending #
-- **[12]** Reset ball on game init
 
 # Resolved #
 
@@ -14,3 +13,4 @@
 - **[9]** Add more blocks that can be broken
 - **[10]** Update ball collision for paddle
 - **[11]** Update collision for all objects 
+- **[12]** Reset ball on game init
