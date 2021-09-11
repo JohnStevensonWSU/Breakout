@@ -1,5 +1,5 @@
 # Pending #
-- **[7]** Go into game over state when block hits the bottom of the screen
+- **[8]** Give the player three lives that are indicated with hearts
 
 # Resolved #
 
@@ -9,3 +9,4 @@
 - **[4]** Create a block that breaks when hit
 - **[5]** Make block disappear when hit
 - **[6]** Control paddle movement with keyboard
+- **[7]** Go into game over state when block hits the bottom of the screen
