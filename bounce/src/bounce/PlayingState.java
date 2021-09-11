@@ -74,7 +74,7 @@ class PlayingState extends BasicGameState {
 		}
 		if (input.isKeyDown(Input.KEY_LEFT)) {
 			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(-.001f, 0)));
-			bg.paddle.setVelocity(new Vector(-.25f, 0f));
+			bg.paddle.setVelocity(new Vector(-.15f, 0f));
 		} else if (!input.isKeyDown(Input.KEY_RIGHT)) {
 				//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(+.001f, 0f)));
 				bg.paddle.setVelocity(new Vector(0f, 0f));
@@ -82,7 +82,7 @@ class PlayingState extends BasicGameState {
 
 		if (input.isKeyDown(Input.KEY_RIGHT)) {
 			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(+.001f, 0f)));
-			bg.paddle.setVelocity(new Vector(.25f, 0f));
+			bg.paddle.setVelocity(new Vector(.15f, 0f));
 		} else if (!input.isKeyDown(Input.KEY_LEFT)) {
 			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(-.001f, 0)));
 			bg.paddle.setVelocity(new Vector(-0f, 0f));
@@ -90,6 +90,7 @@ class PlayingState extends BasicGameState {
 
 		// bounce the ball...
 		boolean bounced = false;
+
 		if (bg.ball.getCoarseGrainedMaxX() > bg.ScreenWidth
 				|| bg.ball.getCoarseGrainedMinX() < 0) {
 			bg.ball.bounce(90);
@@ -110,6 +111,112 @@ class PlayingState extends BasicGameState {
 			bounces++;
 		}
 
+		float bmaxX = bg.ball.getCoarseGrainedMaxX();
+		float bminX = bg.ball.getCoarseGrainedMinX();
+		float bmaxY = bg.ball.getCoarseGrainedMaxY();
+		float bminY = bg.ball.getCoarseGrainedMinY();
+		float omaxX = bg.paddle.getCoarseGrainedMaxX();
+		float ominX = bg.paddle.getCoarseGrainedMinX();
+		float omaxY = bg.paddle.getCoarseGrainedMaxY();
+		float ominY = bg.paddle.getCoarseGrainedMinY();
+
+		float diffs[];
+		float diff = 1000;
+
+		diffs = new float[8];
+		// bottom of block is within paddle
+		diffs[0] = bmaxY - ominY; // bottom of block below top of paddle
+		diffs[1] = omaxY - bmaxY; // bottom of block above bottom of paddle
+		// top of block is within paddle
+		diffs[2] = omaxY - bminY; // top of block above bottom of paddle
+		diffs[3] = bminY - ominY; // top of block below top of paddle
+		//right of block is within paddle
+		diffs[4] = omaxX - bmaxX; // right of block is left of right of paddle
+		diffs[5] = bmaxX - ominX; // right of block is right of left of paddle
+		//left of block is within paddle
+		diffs[6] = bminX - ominX; // left of block is right of left of paddle
+		diffs[7] = omaxX - bminX; // left of block is left of right of paddle
+
+		int yCheck1 = 0;
+		int yCheck2 = 0;
+		int xCheck1 = 0;
+		int xCheck2 = 0;
+
+		for (int i = 0; i < diffs.length; i++) {
+			if (diffs[i] >= 0) {
+				if (i == 0 || i == 1) {
+					yCheck1++;
+				} else if (i == 2 || i == 3) {
+					yCheck2++;
+				} else if (i == 4 || i == 5) {
+					xCheck1++;
+				} else if (i == 6 || i == 7){
+					xCheck2++;
+				}
+
+				if (i % 2 == 0 && (diffs[i + 1] >= 0 && diffs[i] < diff)) {
+					diff = diffs[i];
+				} else if (i % 2 == 1 && (diffs[i - 1] >= 0 && diffs[i] < diff)) {
+					diff = diffs[i];
+				}
+			}
+		}
+
+		if ((yCheck1 == 2 && (xCheck1 == 2 || xCheck2 == 2)) || (yCheck2 == 2 && (xCheck1 == 2 || xCheck2 == 2))) {
+			if (yCheck1 == 2) {
+				System.out.println("Bottom is stuck");
+			}
+			if (yCheck2 == 2) {
+				System.out.println("Top is stuck");
+			}
+			if (xCheck1 == 2) {
+				System.out.println("Right is stuck");
+			}
+			if (xCheck2 == 2) {
+				System.out.println("Left is stuck");
+			}
+			float velx = bg.ball.getVelocity().getX();
+			float vely = bg.ball.getVelocity().getY();
+			float posx = bg.ball.getPosition().getX();
+			float posy = bg.ball.getPosition().getY();
+			if (xCheck1 == 2) {
+				if (yCheck1 == 2) {
+					posx = posx - diff;
+					posy = posy - diff;
+				} else if (yCheck2 == 2) {
+					posx = posx - diff;
+					posy = posy + diff;
+				}
+			} else if (xCheck2 == 2) {
+				if (yCheck1 == 2) {
+					posx = posx + diff;
+					posy = posy - diff;
+				} else if (yCheck2 == 2) {
+					posx = posx + diff;
+					posy = posy + diff;
+				}
+			}
+
+			bg.ball.setPosition(posx, posy);
+			bmaxX = bg.ball.getCoarseGrainedMaxX();
+			bminX = bg.ball.getCoarseGrainedMinX();
+			bmaxY = bg.ball.getCoarseGrainedMaxY();
+			bminY = bg.ball.getCoarseGrainedMinY();
+
+		}
+
+		if (bmaxY == ominY || bminY == omaxY) {
+			if (bmaxX == ominX || bminX == omaxX) {
+				bg.ball.bounce(180);
+			} else if (ominX < bmaxX && bmaxX < omaxX || ominX < bminX && bminX < omaxX) {
+				bg.ball.bounce(0);
+			}
+		} else if (bmaxX == ominX || bminX == omaxX) {
+			if (ominY < bminY && bminY < omaxY || ominY < bmaxY && bmaxY < omaxY) {
+				bg.ball.bounce(90);
+			}
+		}
+		/*
 		if (bg.ball.getCoarseGrainedMaxY() > bg.paddle.getCoarseGrainedMinY() && bg.ball.getCoarseGrainedMaxY() < bg.paddle.getCoarseGrainedMaxY()) {
 			if (bg.ball.getCoarseGrainedMinX() > bg.paddle.getCoarseGrainedMinX()  && bg.ball.getCoarseGrainedMinX() < bg.paddle.getCoarseGrainedMaxX()
 					|| bg.ball.getCoarseGrainedMaxX() < bg.paddle.getCoarseGrainedMaxX() && bg.ball.getCoarseGrainedMaxX() > bg.paddle.getCoarseGrainedMinX()) {
@@ -117,6 +224,8 @@ class PlayingState extends BasicGameState {
 				bounced = true;
 			}
 		}
+		*/
+
 		for (Block b : bg.blocks) {
 			if (!b.getIsBroken()) {
 				if (bg.ball.getCoarseGrainedMinY() < b.getCoarseGrainedMaxY() && bg.ball.getCoarseGrainedMinY() > b.getCoarseGrainedMinY()) {
