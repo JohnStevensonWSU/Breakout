@@ -34,6 +34,9 @@ class PlayingState extends BasicGameState {
 
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
+		BounceGame bg = (BounceGame) game;
+
+		bg.ball.reset();
 		bounces = 0;
 		container.setSoundOn(true);
 	}
