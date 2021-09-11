@@ -99,6 +99,7 @@ class PlayingState extends BasicGameState {
 						|| bg.ball.getCoarseGrainedMaxX() < bg.block.getCoarseGrainedMaxX() && bg.ball.getCoarseGrainedMaxX() > bg.block.getCoarseGrainedMinX()) {
 					bg.ball.bounce(0);
 					bounced = true;
+					bg.block.breakBlock();
 				}
 			}
 		}
