@@ -57,18 +57,28 @@ class PlayingState extends BasicGameState {
 		Input input = container.getInput();
 		BounceGame bg = (BounceGame)game;
 		
-		if (input.isKeyDown(Input.KEY_W)) {
-			bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, -.001f)));
+		if (input.isKeyDown(Input.KEY_UP)) {
+			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, -.001f)));
 		}
-		if (input.isKeyDown(Input.KEY_S)) {
-			bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, +.001f)));
+		if (input.isKeyDown(Input.KEY_DOWN)) {
+			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, +.001f)));
 		}
-		if (input.isKeyDown(Input.KEY_A)) {
-			bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(-.001f, 0)));
+		if (input.isKeyDown(Input.KEY_LEFT)) {
+			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(-.001f, 0)));
+			bg.paddle.setVelocity(new Vector(-.25f, 0f));
+		} else if (!input.isKeyDown(Input.KEY_RIGHT)) {
+				//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(+.001f, 0f)));
+				bg.paddle.setVelocity(new Vector(0f, 0f));
+			}
+
+		if (input.isKeyDown(Input.KEY_RIGHT)) {
+			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(+.001f, 0f)));
+			bg.paddle.setVelocity(new Vector(.25f, 0f));
+		} else if (!input.isKeyDown(Input.KEY_LEFT)) {
+			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(-.001f, 0)));
+			bg.paddle.setVelocity(new Vector(-0f, 0f));
 		}
-		if (input.isKeyDown(Input.KEY_D)) {
-			bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(+.001f, 0f)));
-		}
+
 		// bounce the ball...
 		boolean bounced = false;
 		if (bg.ball.getCoarseGrainedMaxX() > bg.ScreenWidth
@@ -104,6 +114,7 @@ class PlayingState extends BasicGameState {
 			}
 		}
 		bg.ball.update(delta);
+		bg.paddle.update(delta);
 
 		// check if there are any finished explosions, if so remove them
 		for (Iterator<Bang> i = bg.explosions.iterator(); i.hasNext();) {
