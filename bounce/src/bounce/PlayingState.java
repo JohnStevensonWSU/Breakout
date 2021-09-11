@@ -2,6 +2,7 @@ package bounce;
 
 import java.util.Iterator;
 
+import jig.Entity;
 import jig.Vector;
 
 import org.newdawn.slick.GameContainer;
@@ -90,14 +91,40 @@ class PlayingState extends BasicGameState {
 
 		// bounce the ball...
 		boolean bounced = false;
+		float posx = bg.ball.getX();
+		float posy = bg.ball.getY();
+		float diff;
 
-		if (bg.ball.getCoarseGrainedMaxX() > bg.ScreenWidth
-				|| bg.ball.getCoarseGrainedMinX() < 0) {
+		if (bg.ball.getCoarseGrainedMaxX() > bg.ScreenWidth) {
+			diff = bg.ball.getCoarseGrainedMaxX() - bg.ScreenWidth;
+			posx = posx - diff;
+			if (bg.ball.getVelocity().getY() > 0) {
+				posy = posy - diff;
+			} else {
+				posy = posy + diff;
+			}
+			bg.ball.setPosition(posx, posy);
 			bg.ball.bounce(90);
-			bounced = true;
+		} else if (bg.ball.getCoarseGrainedMinX() < 0) {
+			diff = -bg.ball.getCoarseGrainedMinX();
+			posx = posx + diff;
+			if (bg.ball.getVelocity().getY() > 0) {
+				posy = posy - diff;
+			} else {
+				posy = posy + diff;
+			}
+			bg.ball.setPosition(posx, posy);
+			bg.ball.bounce(90);
 		} else if (bg.ball.getCoarseGrainedMinY() < 0) {
-			bg.ball.bounce(0);
-			bounced = true;
+			diff = -bg.ball.getCoarseGrainedMinY();
+			posy = posy + diff;
+			if (bg.ball.getVelocity().getX() > 0) {
+				posx = posx - diff;
+			} else {
+				posx = posx + diff;
+			}
+			bg.ball.setPosition(posx, posy);
+			bg.ball.bounce(180);
 		} else if(bg.ball.getCoarseGrainedMaxY() > bg.ScreenHeight) {
 			numLives = numLives - 1;
 			bg.ball.reset();
@@ -111,16 +138,58 @@ class PlayingState extends BasicGameState {
 			bounces++;
 		}
 
-		float bmaxX = bg.ball.getCoarseGrainedMaxX();
-		float bminX = bg.ball.getCoarseGrainedMinX();
-		float bmaxY = bg.ball.getCoarseGrainedMaxY();
-		float bminY = bg.ball.getCoarseGrainedMinY();
-		float omaxX = bg.paddle.getCoarseGrainedMaxX();
-		float ominX = bg.paddle.getCoarseGrainedMinX();
-		float omaxY = bg.paddle.getCoarseGrainedMaxY();
-		float ominY = bg.paddle.getCoarseGrainedMinY();
+		for (Block b : bg.blocks) {
+			if (!b.getIsBroken()) {
+				bounced = collisionDetection(bg.ball, b);
+				if (bounced) {
+					b.breakBlock();
+				}
+			}
+		}
 
-		float diffs[];
+		collisionDetection(bg.ball, bg.paddle);
+
+		bg.ball.update(delta);
+		bg.paddle.update(delta);
+
+		// check if there are any finished explosions, if so remove them
+		for (Iterator<Bang> i = bg.explosions.iterator(); i.hasNext();) {
+			if (!i.next().isActive()) {
+				i.remove();
+			}
+		}
+
+		for (Block b : bg.blocks) {
+			if (!b.getIsBroken()) {
+				blockExists = true;
+			}
+		}
+
+		if (numLives <= 0 || !blockExists) {
+			((GameOverState)game.getState(BounceGame.GAMEOVERSTATE)).setUserScore(bounces);
+			game.enterState(BounceGame.GAMEOVERSTATE);
+		}
+
+	}
+
+	@Override
+	public int getID() {
+		return BounceGame.PLAYINGSTATE;
+	}
+
+	private boolean collisionDetection(Entity x, Entity o) {
+		Ball b = (Ball) x;
+
+		float bmaxX = b.getCoarseGrainedMaxX();
+		float bminX = b.getCoarseGrainedMinX();
+		float bmaxY = b.getCoarseGrainedMaxY();
+		float bminY = b.getCoarseGrainedMinY();
+		float omaxX = o.getCoarseGrainedMaxX();
+		float ominX = o.getCoarseGrainedMinX();
+		float omaxY = o.getCoarseGrainedMaxY();
+		float ominY = o.getCoarseGrainedMinY();
+
+		float[] diffs;
 		float diff = 1000;
 
 		diffs = new float[8];
@@ -163,22 +232,10 @@ class PlayingState extends BasicGameState {
 		}
 
 		if ((yCheck1 == 2 && (xCheck1 == 2 || xCheck2 == 2)) || (yCheck2 == 2 && (xCheck1 == 2 || xCheck2 == 2))) {
-			if (yCheck1 == 2) {
-				System.out.println("Bottom is stuck");
-			}
-			if (yCheck2 == 2) {
-				System.out.println("Top is stuck");
-			}
-			if (xCheck1 == 2) {
-				System.out.println("Right is stuck");
-			}
-			if (xCheck2 == 2) {
-				System.out.println("Left is stuck");
-			}
-			float velx = bg.ball.getVelocity().getX();
-			float vely = bg.ball.getVelocity().getY();
-			float posx = bg.ball.getPosition().getX();
-			float posy = bg.ball.getPosition().getY();
+			float velx = b.getVelocity().getX();
+			float vely = b.getVelocity().getY();
+			float posx = b.getPosition().getX();
+			float posy = b.getPosition().getY();
 			if (xCheck1 == 2) {
 				if (yCheck1 == 2) {
 					posx = posx - diff;
@@ -197,65 +254,28 @@ class PlayingState extends BasicGameState {
 				}
 			}
 
-			bg.ball.setPosition(posx, posy);
-			bmaxX = bg.ball.getCoarseGrainedMaxX();
-			bminX = bg.ball.getCoarseGrainedMinX();
-			bmaxY = bg.ball.getCoarseGrainedMaxY();
-			bminY = bg.ball.getCoarseGrainedMinY();
+			b.setPosition(posx, posy);
+			bmaxX = b.getCoarseGrainedMaxX();
+			bminX = b.getCoarseGrainedMinX();
+			bmaxY = b.getCoarseGrainedMaxY();
+			bminY = b.getCoarseGrainedMinY();
 
 		}
 
 		if (bmaxY == ominY || bminY == omaxY) {
 			if (bmaxX == ominX || bminX == omaxX) {
-				bg.ball.bounce(180);
+				b.bounce(180);
+				return true;
 			} else if (ominX < bmaxX && bmaxX < omaxX || ominX < bminX && bminX < omaxX) {
-				bg.ball.bounce(0);
+				b.bounce(0);
+				return true;
 			}
 		} else if (bmaxX == ominX || bminX == omaxX) {
 			if (ominY < bminY && bminY < omaxY || ominY < bmaxY && bmaxY < omaxY) {
-				bg.ball.bounce(90);
+				b.bounce(90);
+				return true;
 			}
 		}
-
-		for (Block b : bg.blocks) {
-			if (!b.getIsBroken()) {
-				if (bg.ball.getCoarseGrainedMinY() < b.getCoarseGrainedMaxY() && bg.ball.getCoarseGrainedMinY() > b.getCoarseGrainedMinY()) {
-					if (bg.ball.getCoarseGrainedMinX() > b.getCoarseGrainedMinX() && bg.ball.getCoarseGrainedMinX() < b.getCoarseGrainedMaxX()
-							|| bg.ball.getCoarseGrainedMaxX() < b.getCoarseGrainedMaxX() && bg.ball.getCoarseGrainedMaxX() > b.getCoarseGrainedMinX()) {
-						bg.ball.bounce(0);
-						bounced = true;
-						b.breakBlock();
-					}
-				}
-			}
-		}
-
-		bg.ball.update(delta);
-		bg.paddle.update(delta);
-
-		// check if there are any finished explosions, if so remove them
-		for (Iterator<Bang> i = bg.explosions.iterator(); i.hasNext();) {
-			if (!i.next().isActive()) {
-				i.remove();
-			}
-		}
-
-		for (Block b : bg.blocks) {
-			if (!b.getIsBroken()) {
-				blockExists = true;
-			}
-		}
-
-		if (numLives <= 0 || !blockExists) {
-			((GameOverState)game.getState(BounceGame.GAMEOVERSTATE)).setUserScore(bounces);
-			game.enterState(BounceGame.GAMEOVERSTATE);
-		}
-
+		return false;
 	}
-
-	@Override
-	public int getID() {
-		return BounceGame.PLAYINGSTATE;
-	}
-	
 }
