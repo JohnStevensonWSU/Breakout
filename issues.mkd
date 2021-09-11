@@ -1,5 +1,5 @@
 # Pending #
-- **[10]** Update ball collision to fix sticking issues
+- **[11]** Update collision for all objects 
 
 # Resolved #
 
@@ -11,4 +11,5 @@
 - **[6]** Control paddle movement with keyboard
 - **[7]** Go into game over state when block hits the bottom of the screen
 - **[8]** Give the player three lives that are indicated with hearts
+- **[10]** Update ball collision for paddle
 - **[9]** Add more blocks that can be broken
