@@ -216,15 +216,6 @@ class PlayingState extends BasicGameState {
 				bg.ball.bounce(90);
 			}
 		}
-		/*
-		if (bg.ball.getCoarseGrainedMaxY() > bg.paddle.getCoarseGrainedMinY() && bg.ball.getCoarseGrainedMaxY() < bg.paddle.getCoarseGrainedMaxY()) {
-			if (bg.ball.getCoarseGrainedMinX() > bg.paddle.getCoarseGrainedMinX()  && bg.ball.getCoarseGrainedMinX() < bg.paddle.getCoarseGrainedMaxX()
-					|| bg.ball.getCoarseGrainedMaxX() < bg.paddle.getCoarseGrainedMaxX() && bg.ball.getCoarseGrainedMaxX() > bg.paddle.getCoarseGrainedMinX()) {
-				bg.ball.bounce(0);
-				bounced = true;
-			}
-		}
-		*/
 
 		for (Block b : bg.blocks) {
 			if (!b.getIsBroken()) {
