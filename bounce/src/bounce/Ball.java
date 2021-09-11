@@ -11,12 +11,13 @@ import jig.Vector;
  * 
  */
  class Ball extends Entity {
-
+	private Vector initialPosition;
 	private Vector velocity;
 	private int countdown;
 
 	public Ball(final float x, final float y, final float vx, final float vy) {
 		super(x, y);
+		initialPosition = new Vector(x, y);
 		addImageWithBoundingBox(ResourceManager
 				.getImage(BounceGame.BALL_BALLIMG_RSC));
 		velocity = new Vector(vx, vy);
@@ -64,5 +65,9 @@ import jig.Vector;
 						.getImage(BounceGame.BALL_BROKENIMG_RSC));
 			}
 		}
+	}
+
+	public void reset() {
+		setPosition(initialPosition);
 	}
 }

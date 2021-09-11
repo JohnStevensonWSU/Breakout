@@ -1,5 +1,6 @@
 package bounce;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import jig.Entity;
@@ -53,6 +54,7 @@ public class BounceGame extends StateBasedGame {
 	public static final String BANG_EXPLOSIONIMG_RSC = "bounce/resource/explosion.png";
 	public static final String BANG_EXPLOSIONSND_RSC = "bounce/resource/explosion.wav";
 	public static final String PADDLE_RSC = "bounce/resource/Paddle.png";
+	public static final String HEART_RSC = "bounce/resource/Heart.png";
 
 	public final int ScreenWidth;
 	public final int ScreenHeight;
@@ -60,7 +62,8 @@ public class BounceGame extends StateBasedGame {
 	Ball ball;
 	ArrayList<Bang> explosions;
 	Paddle paddle;
-	Block block;
+	Block blocks[];
+	Heart hearts[];
 
 	/**
 	 * Create the BounceGame frame, saving the width and height for later use.
@@ -88,6 +91,9 @@ public class BounceGame extends StateBasedGame {
 		addState(new StartUpState());
 		addState(new GameOverState());
 		addState(new PlayingState());
+
+		hearts = new Heart[2];
+		blocks = new Block[10];
 		
 		// the sound resource takes a particularly long time to load,
 		// we preload it here to (1) reduce latency when we first play it
@@ -103,10 +109,15 @@ public class BounceGame extends StateBasedGame {
 		ResourceManager.loadImage(STARTUP_BANNER_RSC);
 		ResourceManager.loadImage(BANG_EXPLOSIONIMG_RSC);
 		ResourceManager.loadImage(PADDLE_RSC);
+		ResourceManager.loadImage(HEART_RSC);
 		
 		ball = new Ball(ScreenWidth / 2, ScreenHeight / 2, .1f, .2f);
 		paddle = new Paddle(ScreenWidth / 2, ScreenHeight * 3 / 4);
-		block = new Block(ScreenWidth / 2, ScreenHeight / 4);
+		for (int i = 0; i < blocks.length; i++) {
+			blocks[i] = new Block(ScreenWidth * (i + 1) / 11, ScreenHeight / 4);
+		}
+		hearts[0] = new Heart(20, 60);
+		hearts[1] = new Heart(40, 60);
 
 	}
 	
@@ -123,5 +134,5 @@ public class BounceGame extends StateBasedGame {
 
 	}
 
-	
+
 }
