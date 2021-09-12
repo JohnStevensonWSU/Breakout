@@ -1,5 +1,4 @@
 # Pending #
-- **[28]** Add blocks that need to be hit twice before breaking
 
 # Resolved #
 
