@@ -72,5 +72,8 @@ import jig.Vector;
 	public void reset() {
 		setPosition(initialPosition);
 		setVelocity(initialVelocity);
+		countdown = 0;
+		addImageWithBoundingBox(ResourceManager
+				.getImage(BounceGame.BALL_BALLIMG_RSC));
 	}
 }
