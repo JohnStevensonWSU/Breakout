@@ -1,5 +1,5 @@
 # Pending #
-- **[24]** Fix heart rendering 
+- **[25]** Add level selection cheat code for each level
 
 # Resolved #
 
@@ -26,3 +26,4 @@
 - **[21]** Introduce cheat code to break all blocks in a level
 - **[22]** Create a level class and refactor level1 and level2 to extend that class
 - **[23]** Create level 3
+- **[24]** Fix heart rendering 
