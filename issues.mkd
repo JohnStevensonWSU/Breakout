@@ -1,5 +1,5 @@
 # Pending #
-- **[25]** Add level selection cheat code for each level
+- **[26]** Add splash screen to beginning of game
 
 # Resolved #
 
@@ -27,3 +27,4 @@
 - **[22]** Create a level class and refactor level1 and level2 to extend that class
 - **[23]** Create level 3
 - **[24]** Fix heart rendering 
+- **[25]** Add level selection cheat code for each level
