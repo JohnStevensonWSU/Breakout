@@ -36,23 +36,36 @@ class StartUpState extends BasicGameState {
 		bg = (BounceGame) game;
 		container.setSoundOn(false);
 		nextState = (Level) bg.getState(bg.LEVEL_1);
+
 	}
 
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
+		g.drawString("Breakout", 365, 100);
+		g.drawString("By John Stevenson", 322, 150);
+		g.drawString("Press Enter...", 345, 300);
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game,
 			int delta) throws SlickException {
 		BounceGame bg = (BounceGame) game;
-		game.enterState(nextState.getID());
+		checkInput(container, game);
+		//game.enterState(nextState.getID());
 	}
 
 	@Override
 	public int getID() {
 		return BounceGame.STARTUPSTATE;
+	}
+
+	private void checkInput(GameContainer container, StateBasedGame game) {
+		Input input = container.getInput();
+
+		if (input.isKeyDown(Input.KEY_ENTER) || input.isKeyDown(Input.KEY_NUMPADENTER)) {
+			game.enterState(nextState.getID());
+		}
 	}
 }
