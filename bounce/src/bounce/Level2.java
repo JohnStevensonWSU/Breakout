@@ -80,6 +80,12 @@ class Level2 extends BasicGameState {
                 levelStart = true;
             }
         }
+        if (input.isKeyDown(Input.KEY_X)) {
+                for (Block b : bg.blocks) {
+                    b.breakBlock();
+                }
+        }
+
 
         if (input.isKeyDown(Input.KEY_UP)) {
             //bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, -.001f)));

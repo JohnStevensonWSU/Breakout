@@ -70,6 +70,12 @@ class Level1 extends BasicGameState {
 		BounceGame bg = (BounceGame)game;
 		boolean blockExists = false;
 
+		if (input.isKeyDown(Input.KEY_X)) {
+			for (Block b : bg.blocks) {
+				b.breakBlock();
+			}
+		}
+
 		if (input.isKeyDown(Input.KEY_UP)) {
 			//bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, -.001f)));
 		}
