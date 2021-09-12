@@ -136,6 +136,16 @@ class PlayingState extends BasicGameState {
 			}
 		}
 
+		posx = bg.paddle.getX();
+
+		if (bg.paddle.getCoarseGrainedMinX() < 0) {
+			posx = posx - bg.paddle.getCoarseGrainedMinX();
+			bg.paddle.setX(posx);
+		} else if (bg.paddle.getCoarseGrainedMaxX() > bg.ScreenWidth) {
+			posx = posx - bg.paddle.getCoarseGrainedMaxX() + bg.ScreenWidth;
+			bg.paddle.setX(posx);
+		}
+
 		if (bounced) {
 			bg.explosions.add(new Bang(bg.ball.getX(), bg.ball.getY()));
 			bounces++;
@@ -143,14 +153,14 @@ class PlayingState extends BasicGameState {
 
 		for (Block b : bg.blocks) {
 			if (!b.getIsBroken()) {
-				bounced = collisionDetection(bg.ball, b);
+				bounced = ballCollisionDetection(bg.ball, b);
 				if (bounced) {
 					b.breakBlock();
 				}
 			}
 		}
 
-		collisionDetection(bg.ball, bg.paddle);
+		ballCollisionDetection(bg.ball, bg.paddle);
 
 		bg.ball.update(delta);
 		bg.paddle.update(delta);
@@ -180,7 +190,7 @@ class PlayingState extends BasicGameState {
 		return BounceGame.PLAYINGSTATE;
 	}
 
-	private boolean collisionDetection(Entity x, Entity o) {
+	private boolean ballCollisionDetection(Entity x, Entity o) {
 		Ball b = (Ball) x;
 
 		float bmaxX = b.getCoarseGrainedMaxX();
