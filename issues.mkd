@@ -1,5 +1,5 @@
 # Pending #
-- **[17]** Refactor PlayingState into Level 1 and chain Level 1 and Level 2 together
+- **[18]** Prompt user to start Level 2
 
 # Resolved #
 
@@ -19,3 +19,4 @@
 - **[14]** Create a second level as a game state
 - **[15]** Fix collision detection in startup state
 - **[16]** Add blocks to level 2 
+- **[17]** Refactor PlayingState into Level 1 and chain Level 1 and Level 2 together
