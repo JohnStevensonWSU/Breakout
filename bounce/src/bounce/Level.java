@@ -48,7 +48,9 @@ class Level extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         g.drawString("Score: " + bg.getScore(), 10, 30);
         for (Heart h : hearts) {
-            h.render(g);
+            if (h.getStatus()) {
+                h.render(g);
+            }
         }
         for (Block b : blocks) {
             if (!b.getIsBroken()) {
@@ -276,9 +278,9 @@ class Level extends BasicGameState {
             ball.setPosition(posx, posy);
             ball.bounce(180);
         } else if(ball.getCoarseGrainedMaxY() > bg.ScreenHeight) {
-            for (Heart h : hearts) {
-                if (h.getStatus()) {
-                    h.killHeart();
+            for (int i = hearts.length - 1; i >= 0 ; i--) {
+                if (hearts[i].getStatus()) {
+                    hearts[i].killHeart();
                     break;
                 }
             }
