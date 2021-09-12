@@ -14,6 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 class Level2 extends BasicGameState {
     int bounces;
     int numLives = 3;
+    boolean levelStart = false;
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -58,6 +59,11 @@ class Level2 extends BasicGameState {
                 h.render(g);
             }
         }
+
+        if (!levelStart) {
+            g.drawImage(ResourceManager.getImage(BounceGame.STARTUP_BANNER_RSC),
+                    225, 270);
+        }
     }
 
     @Override
@@ -66,6 +72,14 @@ class Level2 extends BasicGameState {
         Input input = container.getInput();
         BounceGame bg = (BounceGame) game;
         boolean blockExists = false;
+
+        if (!levelStart) {
+            if (!input.isKeyDown(Input.KEY_SPACE)) {
+                return;
+            } else {
+                levelStart = true;
+            }
+        }
 
         if (input.isKeyDown(Input.KEY_UP)) {
             //bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, -.001f)));
