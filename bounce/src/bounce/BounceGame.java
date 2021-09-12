@@ -59,11 +59,7 @@ public class BounceGame extends StateBasedGame {
 	public final int ScreenWidth;
 	public final int ScreenHeight;
 
-	Ball ball;
-	ArrayList<Bang> explosions;
-	Paddle paddle;
-	Block blocks[];
-	Heart hearts[];
+	private int score = 0;
 
 	/**
 	 * Create the BounceGame frame, saving the width and height for later use.
@@ -79,10 +75,7 @@ public class BounceGame extends StateBasedGame {
 		super(title);
 		ScreenHeight = height;
 		ScreenWidth = width;
-
 		Entity.setCoarseGrainedCollisionBoundary(Entity.AABB);
-		explosions = new ArrayList<Bang>(10);
-				
 	}
 
 
@@ -93,9 +86,6 @@ public class BounceGame extends StateBasedGame {
 		addState(new Level1());
 		addState(new Level2());
 
-		hearts = new Heart[2];
-		blocks = new Block[10];
-		
 		// the sound resource takes a particularly long time to load,
 		// we preload it here to (1) reduce latency when we first play it
 		// and (2) because loading it will load the audio libraries and
@@ -111,15 +101,6 @@ public class BounceGame extends StateBasedGame {
 		ResourceManager.loadImage(BANG_EXPLOSIONIMG_RSC);
 		ResourceManager.loadImage(PADDLE_RSC);
 		ResourceManager.loadImage(HEART_RSC);
-		
-		ball = new Ball(ScreenWidth / 2, ScreenHeight / 2, .15f, .15f);
-		paddle = new Paddle(ScreenWidth / 2, ScreenHeight * 3 / 4);
-		for (int i = 0; i < blocks.length; i++) {
-			blocks[i] = new Block(ScreenWidth * (i + 1) / 11, ScreenHeight / 4);
-		}
-		hearts[0] = new Heart(20, 60);
-		hearts[1] = new Heart(40, 60);
-
 	}
 	
 	public static void main(String[] args) {
@@ -135,5 +116,8 @@ public class BounceGame extends StateBasedGame {
 
 	}
 
+	public int getScore() {
+		return score;
+	}
 
 }
