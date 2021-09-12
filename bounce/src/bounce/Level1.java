@@ -23,7 +23,7 @@ import org.newdawn.slick.state.StateBasedGame;
  * 
  * Transitions To GameOverState
  */
-class PlayingState extends BasicGameState {
+class Level1 extends BasicGameState {
 	int bounces;
 	int numLives = 3;
 	
@@ -179,15 +179,14 @@ class PlayingState extends BasicGameState {
 		}
 
 		if (numLives <= 0 || !blockExists) {
-			((GameOverState)game.getState(BounceGame.GAMEOVERSTATE)).setUserScore(bounces);
-			game.enterState(BounceGame.GAMEOVERSTATE);
+			game.enterState(BounceGame.LEVEL_2);
 		}
 
 	}
 
 	@Override
 	public int getID() {
-		return BounceGame.PLAYINGSTATE;
+		return BounceGame.LEVEL_1;
 	}
 
 	private boolean ballCollisionDetection(Entity x, Entity o) {

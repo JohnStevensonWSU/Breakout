@@ -36,6 +36,7 @@ class Level2 extends BasicGameState {
                 posy = bg.ScreenHeight * (i - 3) / 11;
             }
             bg.blocks[i].setPosition(posx, posy);
+            bg.blocks[i].unsetIsBroken();
         }
     }
 
