@@ -45,7 +45,8 @@ public class BounceGame extends StateBasedGame {
 	
 	public static final int STARTUPSTATE = 0;
 	public static final int PLAYINGSTATE = 1;
-	public static final int GAMEOVERSTATE = 2;
+	public static final int LEVEL_2 = 2;
+	public static final int GAMEOVERSTATE = 3;
 	
 	public static final String BALL_BALLIMG_RSC = "bounce/resource/ball.png";
 	public static final String BALL_BROKENIMG_RSC = "bounce/resource/brokenball.png";
@@ -91,6 +92,7 @@ public class BounceGame extends StateBasedGame {
 		addState(new StartUpState());
 		addState(new GameOverState());
 		addState(new PlayingState());
+		addState(new Level2());
 
 		hearts = new Heart[2];
 		blocks = new Block[10];
