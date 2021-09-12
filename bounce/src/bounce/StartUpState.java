@@ -55,9 +55,11 @@ class StartUpState extends BasicGameState {
 		Input input = container.getInput();
 		BounceGame bg = (BounceGame)game;
 
-		if (input.isKeyDown(Input.KEY_SPACE))
-			bg.enterState(BounceGame.PLAYINGSTATE);	
-		
+		if (input.isKeyDown(Input.KEY_SPACE)) {
+			//bg.enterState(BounceGame.PLAYINGSTATE);
+			bg.enterState(BounceGame.LEVEL_2);
+		}
+
 		// bounce the ball...
 		boolean bounced = false;
 		if (bg.ball.getCoarseGrainedMaxX() > bg.ScreenWidth
