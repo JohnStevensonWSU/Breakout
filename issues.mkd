@@ -1,5 +1,5 @@
 # Pending #
-- **[20]** Introduce debugging level select feature
+- **[21]** Introduce cheat code to break all blocks in a level
 
 # Resolved #
 
@@ -22,3 +22,4 @@
 - **[17]** Refactor PlayingState into Level 1 and chain Level 1 and Level 2 together
 - **[18]** Prompt user to start Level 2
 - **[19]** Reset ball image at level 2 startup
+- **[20]** Introduce debugging level select feature
