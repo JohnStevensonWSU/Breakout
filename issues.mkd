@@ -1,5 +1,5 @@
 # Pending #
-- **[27]** Add music to splash screen and levels
+- **[28]** Add blocks that need to be hit twice before breaking
 
 # Resolved #
 
@@ -29,3 +29,4 @@
 - **[24]** Fix heart rendering 
 - **[25]** Add level selection cheat code for each level
 - **[26]** Add splash screen to beginning of game
+- **[27]** Add music to splash screen and levels
