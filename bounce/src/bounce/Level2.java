@@ -3,6 +3,7 @@ package bounce;
 import jig.Entity;
 import jig.ResourceManager;
 
+import jig.Vector;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -47,6 +48,28 @@ class Level2 extends BasicGameState {
                        int delta) throws SlickException {
         Input input = container.getInput();
         BounceGame bg = (BounceGame) game;
+
+        if (input.isKeyDown(Input.KEY_UP)) {
+            //bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, -.001f)));
+        }
+        if (input.isKeyDown(Input.KEY_DOWN)) {
+            //bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, +.001f)));
+        }
+        if (input.isKeyDown(Input.KEY_LEFT)) {
+            //bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(-.001f, 0)));
+            bg.paddle.setVelocity(new Vector(-.15f, 0f));
+        } else if (!input.isKeyDown(Input.KEY_RIGHT)) {
+            //bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(+.001f, 0f)));
+            bg.paddle.setVelocity(new Vector(0f, 0f));
+        }
+
+        if (input.isKeyDown(Input.KEY_RIGHT)) {
+            //bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(+.001f, 0f)));
+            bg.paddle.setVelocity(new Vector(.15f, 0f));
+        } else if (!input.isKeyDown(Input.KEY_LEFT)) {
+            //bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(-.001f, 0)));
+            bg.paddle.setVelocity(new Vector(-0f, 0f));
+        }
 
         boolean bounced = false;
         float posx = bg.ball.getX();
