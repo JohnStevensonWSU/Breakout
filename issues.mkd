@@ -1,5 +1,5 @@
 # Pending #
-- **[13]** Limit paddle movement to within the game window
+- **[14]** Create a second level as a game state
 
 # Resolved #
 
@@ -15,3 +15,4 @@
 - **[10]** Update ball collision for paddle
 - **[11]** Update collision for all objects 
 - **[12]** Reset ball on game init
+- **[13]** Limit paddle movement to within the game window
