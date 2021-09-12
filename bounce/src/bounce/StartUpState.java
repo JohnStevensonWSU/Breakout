@@ -34,9 +34,9 @@ class StartUpState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
 		bg = (BounceGame) game;
-		container.setSoundOn(false);
+		container.setSoundOn(true);
 		nextState = (Level) bg.getState(bg.LEVEL_1);
-
+		ResourceManager.getSound(BounceGame.TITLE_MUSIC_RSC).play();
 	}
 
 
@@ -53,7 +53,6 @@ class StartUpState extends BasicGameState {
 			int delta) throws SlickException {
 		BounceGame bg = (BounceGame) game;
 		checkInput(container, game);
-		//game.enterState(nextState.getID());
 	}
 
 	@Override
