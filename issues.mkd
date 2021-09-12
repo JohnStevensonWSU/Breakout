@@ -1,5 +1,5 @@
 # Pending #
-- **[15]** Fix collision detection in startup state
+- **[16]** Add blocks to level 2 
 
 # Resolved #
 
@@ -17,3 +17,4 @@
 - **[12]** Reset ball on game init
 - **[13]** Limit paddle movement to within the game window
 - **[14]** Create a second level as a game state
+- **[15]** Fix collision detection in startup state
