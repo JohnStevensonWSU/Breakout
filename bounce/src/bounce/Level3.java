@@ -1,17 +1,12 @@
 package bounce;
 
-import jig.Entity;
-import jig.ResourceManager;
-
-import jig.Vector;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-class Level2 extends Level {
+class Level3 extends Level {
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -21,16 +16,21 @@ class Level2 extends Level {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         super.enter(container, game);
-        nextState = (BasicGameState) bg.getState(bg.LEVEL_3);
-        blocks = new Block[10];
+        nextState = (BasicGameState) bg.getState(bg.GAMEOVERSTATE);
+        blocks = new Block[19];
 
         for (int i = 0; i < blocks.length; i++) {
-            int posx = bg.ScreenWidth * (i + 1) / 11;
-            int posy;
-            if (i <= 4) {
-                posy = bg.ScreenHeight * (6 - i) / 11;
+            float posx;
+            float posy;
+            if (i < 10) {
+                posx = bg.ScreenWidth * (i + 1) / 11;
             } else {
-                posy = bg.ScreenHeight * (i - 3) / 11;
+                posx = bg.ScreenWidth * (i - 9) / 10;
+            }
+            if (i < 10) {
+                posy = bg.ScreenHeight * 3 / 8;
+            } else {
+                posy = bg.ScreenHeight * 1 / 4;
             }
             blocks[i] = new Block(posx, posy);
         }
@@ -49,5 +49,5 @@ class Level2 extends Level {
     }
 
     @Override
-    public int getID() { return BounceGame.LEVEL_2; }
+    public int getID() { return BounceGame.LEVEL_3; }
 }

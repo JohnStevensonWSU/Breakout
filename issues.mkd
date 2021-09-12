@@ -1,5 +1,5 @@
 # Pending #
-- **[22]** Create a level class and refactor level1 and level2 to extend that class
+- **[23]** Create level 3
 
 # Resolved #
 
@@ -24,3 +24,4 @@
 - **[19]** Reset ball image at level 2 startup
 - **[20]** Introduce debugging level select feature
 - **[21]** Introduce cheat code to break all blocks in a level
+- **[22]** Create a level class and refactor level1 and level2 to extend that class

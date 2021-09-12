@@ -45,7 +45,8 @@ public class BounceGame extends StateBasedGame {
 	public static final int STARTUPSTATE = 0;
 	public static final int LEVEL_1 = 1;
 	public static final int LEVEL_2 = 2;
-	public static final int GAMEOVERSTATE = 3;
+	public static final int LEVEL_3 = 3;
+	public static final int GAMEOVERSTATE = 4;
 	
 	public static final String BALL_BALLIMG_RSC = "bounce/resource/ball.png";
 	public static final String BALL_BROKENIMG_RSC = "bounce/resource/brokenball.png";
@@ -85,6 +86,7 @@ public class BounceGame extends StateBasedGame {
 		addState(new GameOverState());
 		addState(new Level1());
 		addState(new Level2());
+		addState(new Level3());
 
 		// the sound resource takes a particularly long time to load,
 		// we preload it here to (1) reduce latency when we first play it
