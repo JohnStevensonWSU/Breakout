@@ -59,6 +59,8 @@ class StartUpState extends BasicGameState {
 
 		if (input.isKeyDown(Input.KEY_SPACE)) {
 			bg.enterState(BounceGame.LEVEL_1);
+		} else if (input.isKeyDown(Input.KEY_2)) {
+			bg.enterState((BounceGame.LEVEL_2));
 		}
 
 		// bounce the ball...
