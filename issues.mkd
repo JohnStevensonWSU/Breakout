@@ -1,5 +1,5 @@
 # Pending #
-- **[26]** Add splash screen to beginning of game
+- **[27]** Add music to splash screen and levels
 
 # Resolved #
 
@@ -28,3 +28,4 @@
 - **[23]** Create level 3
 - **[24]** Fix heart rendering 
 - **[25]** Add level selection cheat code for each level
+- **[26]** Add splash screen to beginning of game
