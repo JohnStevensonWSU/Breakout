@@ -26,6 +26,17 @@ class Level2 extends BasicGameState {
 
         container.setSoundOn(false);
         bg.ball.reset();
+
+        for (int i = 0; i < bg.blocks.length; i++) {
+            int posx = bg.ScreenWidth * (i + 1) / 11;
+            int posy;
+            if (i <= 4) {
+                posy = bg.ScreenHeight * (6 - i) / 11;
+            } else {
+                posy = bg.ScreenHeight * (i - 3) / 11;
+            }
+            bg.blocks[i].setPosition(posx, posy);
+        }
     }
 
     @Override
@@ -35,6 +46,11 @@ class Level2 extends BasicGameState {
 
         bg.ball.render(g);
         bg.paddle.render(g);
+        for (Block b : bg.blocks) {
+            if (!b.getIsBroken()) {
+                b.render(g);
+            }
+        }
         g.drawString("Bounces: " + bounces, 10, 30);
         for (Heart h : bg.hearts) {
             if (h.getStatus()) {
@@ -48,6 +64,7 @@ class Level2 extends BasicGameState {
                        int delta) throws SlickException {
         Input input = container.getInput();
         BounceGame bg = (BounceGame) game;
+        boolean blockExists = false;
 
         if (input.isKeyDown(Input.KEY_UP)) {
             //bg.ball.setVelocity(bg.ball.getVelocity().add(new Vector(0f, -.001f)));
@@ -116,10 +133,25 @@ class Level2 extends BasicGameState {
 
         ballCollisionDetection(bg.ball, bg.paddle);
 
+        for (Block b : bg.blocks) {
+            if (!b.getIsBroken()) {
+                bounced = ballCollisionDetection(bg.ball, b);
+                if (bounced) {
+                    b.breakBlock();
+                }
+            }
+        }
+
+        for (Block b : bg.blocks) {
+            if (!b.getIsBroken()) {
+                blockExists = true;
+            }
+        }
+
         bg.ball.update(delta);
         bg.paddle.update(delta);
 
-        if (numLives <= 0) {
+        if (numLives <= 0 || !blockExists) {
             ((GameOverState)game.getState(BounceGame.GAMEOVERSTATE)).setUserScore(bounces);
             game.enterState(BounceGame.GAMEOVERSTATE);
         }
