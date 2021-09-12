@@ -1,6 +1,5 @@
 package bounce;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import jig.Entity;
@@ -44,7 +43,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class BounceGame extends StateBasedGame {
 	
 	public static final int STARTUPSTATE = 0;
-	public static final int PLAYINGSTATE = 1;
+	public static final int LEVEL_1 = 1;
 	public static final int LEVEL_2 = 2;
 	public static final int GAMEOVERSTATE = 3;
 	
@@ -91,7 +90,7 @@ public class BounceGame extends StateBasedGame {
 	public void initStatesList(GameContainer container) throws SlickException {
 		addState(new StartUpState());
 		addState(new GameOverState());
-		addState(new PlayingState());
+		addState(new Level1());
 		addState(new Level2());
 
 		hearts = new Heart[2];
