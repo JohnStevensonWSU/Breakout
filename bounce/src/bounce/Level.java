@@ -189,6 +189,13 @@ class Level extends BasicGameState {
 
     private boolean checkInput(GameContainer container) {
         Input input = container.getInput();
+        if (input.isKeyDown(Input.KEY_1)) {
+            bg.enterState(bg.LEVEL_1);
+        } else if (input.isKeyDown(Input.KEY_2)) {
+            bg.enterState(bg.LEVEL_2);
+        } else if (input.isKeyDown(Input.KEY_3)) {
+            bg.enterState(bg.LEVEL_3);
+        }
         if (!levelStart) {
             if (!input.isKeyDown(Input.KEY_SPACE)) {
                 return false;
