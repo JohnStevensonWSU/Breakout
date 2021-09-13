@@ -1,5 +1,5 @@
 # Pending #
-- **[31]** Reset paddle on life lost
+- **[32]** Prepare game for intial release
 
 # Resolved #
 
@@ -33,3 +33,4 @@
 - **[28]** Take out any unused or unnecessary code
 - **[29]** Add some randomness to ball bouncing to enhance replayability
 - **[30]** Add comments to code 
+- **[31]** Reset paddle on life lost
