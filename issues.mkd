@@ -1,5 +1,5 @@
 # Pending #
-- **[29]** Add some randomness to ball bouncing to enhance replayability
+- **[30]** Add comments to code 
 
 # Resolved #
 
@@ -31,3 +31,4 @@
 - **[26]** Add splash screen to beginning of game
 - **[27]** Add music to splash screen and levels
 - **[28]** Take out any unused or unnecessary code
+- **[29]** Add some randomness to ball bouncing to enhance replayability
