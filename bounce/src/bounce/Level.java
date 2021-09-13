@@ -356,6 +356,7 @@ class Level extends BasicGameState {
                 }
             }
             ball.reset();
+            paddle.reset();
         }
         for (Heart h : hearts) {
             if (h.getStatus()) {
