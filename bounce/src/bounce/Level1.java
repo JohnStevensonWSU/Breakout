@@ -1,27 +1,14 @@
 package bounce;
 
-import java.util.Iterator;
-
-import jig.Entity;
-import jig.Vector;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 
 /**
- * This state is active when the Game is being played. In this state, sound is
- * turned on, the bounce counter begins at 0 and increases until 10 at which
- * point a transition to the Game Over state is initiated. The user can also
- * control the ball using the WAS & D keys.
- * 
- * Transitions From StartUpState
- * 
- * Transitions To GameOverState
+ *  Level1 is the first Level in Breakout. See Level for method descriptions
  */
 class Level1 extends Level {
 
@@ -33,8 +20,11 @@ class Level1 extends Level {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) {
 		super.enter(container, game);
+		// sets next state to level 2
 		nextState = (BasicGameState) bg.getState(bg.LEVEL_2);
+		// creates ten blocks for level 1
 		blocks = new Block[10];
+		// the blocks are set equally apart 1/4th down the screen
 		for (int i = 0; i < blocks.length; i++) {
 			blocks[i] = new Block(bg.ScreenWidth * (i + 1) / 11, bg.ScreenHeight * 1 / 4);
 		}

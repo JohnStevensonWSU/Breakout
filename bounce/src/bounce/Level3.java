@@ -6,6 +6,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * Level3 is the third, and final, level in Breakout
+ */
 class Level3 extends Level {
 
     @Override
@@ -16,9 +19,11 @@ class Level3 extends Level {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         super.enter(container, game);
+
         nextState = (BasicGameState) bg.getState(bg.GAMEOVERSTATE);
         blocks = new Block[19];
 
+        // sets the blocks in two rows
         for (int i = 0; i < blocks.length; i++) {
             float posx;
             float posy;
