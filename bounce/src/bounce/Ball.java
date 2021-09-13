@@ -4,11 +4,14 @@ import jig.Entity;
 import jig.ResourceManager;
 import jig.Vector;
 
- class Ball extends Entity {
+import java.util.Random;
+
+class Ball extends Entity {
 	private Vector initialPosition;
 	private Vector initialVelocity;
 	private Vector velocity;
 	private int countdown;
+	private final float velocityScale = 0.15f;
 
 	public Ball(final float x, final float y, final float vx, final float vy) {
 		super(x, y);
@@ -29,10 +32,19 @@ import jig.Vector;
 	}
 
 	public void bounce(float surfaceTangent) {
+		float velX = (velocityScale * 2 / 3) + (new Random().nextFloat() * (velocityScale * 2 / 3));
+		float velY = (velocityScale * 2 / 3) + (new Random().nextFloat() * (velocityScale * 2 / 3));
 		removeImage(ResourceManager.getImage(BounceGame.BALL_BALLIMG_RSC));
 		addImageWithBoundingBox(ResourceManager
 				.getImage(BounceGame.BALL_BROKENIMG_RSC));
 		countdown = 500;
+		if (getVelocity().getX() < 0) {
+			velX = -velX;
+		}
+		if (getVelocity().getY() < 0) {
+			velY = -velY;
+		}
+		velocity = new Vector(velX, velY);
 		velocity = velocity.bounce(surfaceTangent);
 	}
 
