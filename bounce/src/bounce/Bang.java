@@ -5,11 +5,6 @@ import jig.ResourceManager;
 
 import org.newdawn.slick.Animation;
 
-/**
- * A class representing a transient explosion. The game should monitor
- * explosions to determine when they are no longer active and remove/hide
- * them at that point.
- */
 class Bang extends Entity {
 	private Animation explosion;
 

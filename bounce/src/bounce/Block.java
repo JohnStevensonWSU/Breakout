@@ -23,9 +23,4 @@ public class Block extends Entity {
     public void breakBlock() {
         setIsBroken();
     }
-
-    public void unsetIsBroken() { isBroken = false; }
-
-    public void reset() { unsetIsBroken(); }
-
 }
