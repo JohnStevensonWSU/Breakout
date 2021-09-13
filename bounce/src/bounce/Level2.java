@@ -6,6 +6,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * Level2 is the second level in Breakout. See Level for method descriptions
+ */
 class Level2 extends Level {
 
     @Override
@@ -16,9 +19,11 @@ class Level2 extends Level {
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
         super.enter(container, game);
+        // sets next state to level 3
         nextState = (BasicGameState) bg.getState(bg.LEVEL_3);
         blocks = new Block[10];
 
+        // sets the blocks in a triangle formation
         for (int i = 0; i < blocks.length; i++) {
             int posx = bg.ScreenWidth * (i + 1) / 11;
             int posy;
