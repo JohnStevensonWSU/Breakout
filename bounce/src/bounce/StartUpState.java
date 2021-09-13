@@ -1,8 +1,5 @@
 package bounce;
 
-import java.util.Iterator;
-
-import jig.Entity;
 import jig.ResourceManager;
 
 import org.newdawn.slick.GameContainer;

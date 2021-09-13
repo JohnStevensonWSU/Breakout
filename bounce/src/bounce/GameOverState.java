@@ -1,7 +1,5 @@
 package bounce;
 
-import java.util.Iterator;
-
 import jig.ResourceManager;
 
 import org.newdawn.slick.GameContainer;
@@ -12,21 +10,11 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.EmptyTransition;
 import org.newdawn.slick.state.transition.HorizontalSplitTransition;
 
-
-/**
- * This state is active when the Game is over. In this state, the ball is
- * neither drawn nor updated; and a gameover banner is displayed. A timer
- * automatically transitions back to the StartUp State.
- * 
- * Transitions From PlayingState
- * 
- * Transitions To StartUpState
- */
 class GameOverState extends BasicGameState {
 	
 
 	private int timer;
-	private int lastKnownBounces; // the user's score, to be displayed, but not updated.
+	private int lastKnownBounces;
 	
 	@Override
 	public void init(GameContainer container, StateBasedGame game)

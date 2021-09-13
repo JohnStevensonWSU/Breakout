@@ -67,8 +67,6 @@ class Level extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-        boolean blockExists = false;
-
         if (!checkInput(container)) {
             return;
         }
@@ -248,7 +246,6 @@ class Level extends BasicGameState {
     }
 
     private boolean checkScreen() {
-        boolean bounced = false;
         boolean heartExists = false;
         float posx = ball.getX();
         float posy = ball.getY();
