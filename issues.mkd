@@ -1,5 +1,5 @@
 # Pending #
-- **[33]** Add compiled code to git repository
+- **[34]** Release initial version of Breakout
 
 # Resolved #
 
@@ -35,3 +35,4 @@
 - **[30]** Add comments to code 
 - **[31]** Reset paddle on life lost
 - **[32]** Prepare game for intial release
+- **[33]** Add compiled code to git repository
